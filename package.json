@@ -1,0 +1,22 @@
+{
+  "name": "movies-explorer-api",
+  "version": "0.0.1",
+  "description": "REST API with Express, Node and MongoDB for movie search service",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \\\"Error: no test specified\\\" && exit 1",
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "lint": "npx eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JuliaMacFiurst/movies-explorer-api.git"
+  },
+  "author": "Julia Makhlin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JuliaMacFiurst/movies-explorer-api/issues"
+  },
+  "homepage": "https://github.com/JuliaMacFiurst/movies-explorer-api#readme"
+}
