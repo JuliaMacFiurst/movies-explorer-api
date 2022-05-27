@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const bcrypt = require('bcryptjs');
+
+const NOT_AUTH = require('../errors/AuthError');
 
 const { validationMessages } = require('../utils');
 
@@ -39,5 +42,21 @@ const userSchema = new mongoose.Schema({
     },
   },
 });
+
+userSchema.statics.findUserByCredentials = function (email, password) {
+  return this.findOne({ email }).select('+password')
+    .then((user) => {
+      if (!user) {
+        throw new NOT_AUTH('Неправильные почта или пароль.');
+      }
+      return bcrypt.compare(password, user.password)
+        .then((matched) => {
+          if (!matched) {
+            throw new NOT_AUTH('Неправильные почта или пароль.');
+          }
+          return user;
+        });
+    });
+};
 
 module.exports = mongoose.model('user', userSchema);
