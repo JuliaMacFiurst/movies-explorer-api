@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const { JWT_SECRET, SALT_ROUNDS } = require('../utils');
+const { NODE_ENV, JWT_SECRET, SALT_ROUNDS } = require('../utils');
 
 const User = require('../models/user');
 const BAD_REQUEST = require('../errors/BadRequest');
@@ -50,7 +50,7 @@ const login = async (req, res, next) => {
 
     const token = jwt.sign(
       { _id: user._id },
-      JWT_SECRET,
+      NODE_ENV === 'production' ? JWT_SECRET : 'strongest-key-ever',
       { expiresIn: '7d' },
     );
 

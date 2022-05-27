@@ -13,47 +13,28 @@ const createUserValidation = celebrate({
         'string.max': validationMessages.nameMaxLength,
       }),
     email: Joi.string().required()
-      .custom((value, helpers) => {
+      .custom((value, tips) => {
         if (validator.isEmail(value)) {
           return value;
         }
-        return helpers.message(validationMessages.emailInvalidUrl);
+        return tips.message(validationMessages.emailInvalidUrl);
       })
       .messages({
         'any.required': validationMessages.emailRequired,
       }),
     password: Joi.string().required()
-      .custom((value, helpers) => {
+      .custom((value, tips) => {
         if (validator.isStrongPassword(value, {
           minLength: 8,
-          minLowercase: 1,
-          minUppercase: 1,
-          minNumbers: 1,
           minSymbols: 0,
+          minUppercase: 1,
+          minLowercase: 1,
+          minNumbers: 1,
         })) {
           return value;
         }
-        return helpers.message(validationMessages.passwordNotStrong);
+        return tips.message(validationMessages.passwordNotStrong);
       })
-      .messages({
-        'any.required': validationMessages.passwordRequired,
-      }),
-  }),
-});
-
-const loginValidation = celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().email().label('Da')
-      .custom((value, helpers) => {
-        if (validator.isEmail(value)) {
-          return value;
-        }
-        return helpers.message(validationMessages.emailInvalidUrl);
-      })
-      .messages({
-        'string.required': validationMessages.emailRequired,
-      }),
-    password: Joi.string().required()
       .messages({
         'any.required': validationMessages.passwordRequired,
       }),
@@ -69,14 +50,33 @@ const updateUserValidation = celebrate({
         'string.max': validationMessages.nameMaxLength,
       }),
     email: Joi.string().required().email()
-      .custom((value, helpers) => {
+      .custom((value, tips) => {
         if (validator.isEmail(value)) {
           return value;
         }
-        return helpers.message(validationMessages.emailInvalidUrl);
+        return tips.message(validationMessages.emailInvalidUrl);
       })
       .messages({
         'any.required': validationMessages.emailRequired,
+      }),
+  }),
+});
+
+const loginValidation = celebrate({
+  body: Joi.object().keys({
+    email: Joi.string().required().email()
+      .custom((value, tips) => {
+        if (validator.isEmail(value)) {
+          return value;
+        }
+        return tips.message(validationMessages.emailInvalidUrl);
+      })
+      .messages({
+        'string.required': validationMessages.emailRequired,
+      }),
+    password: Joi.string().required()
+      .messages({
+        'any.required': validationMessages.passwordRequired,
       }),
   }),
 });
@@ -116,31 +116,31 @@ const createMovieValidation = celebrate({
         'any.required': validationMessages.directorRequired,
       }),
     image: Joi.string().required()
-      .custom((value, helpers) => {
+      .custom((value, tips) => {
         if (validator.isURL(value)) {
           return value;
         }
-        return helpers.message(validationMessages.imageInvalidUrl);
+        return tips.message(validationMessages.imageInvalidUrl);
       })
       .messages({
         'any.required': validationMessages.imageRequired,
       }),
     trailer: Joi.string().required()
-      .custom((value, helpers) => {
+      .custom((value, tips) => {
         if (validator.isURL(value)) {
           return value;
         }
-        return helpers.message(validationMessages.trailerInvalidUrl);
+        return tips.message(validationMessages.trailerInvalidUrl);
       })
       .messages({
         'any.required': validationMessages.trailerRequired,
       }),
     thumbnail: Joi.string().required()
-      .custom((value, helpers) => {
+      .custom((value, tips) => {
         if (validator.isURL(value)) {
           return value;
         }
-        return helpers.message(validationMessages.thumbnailInvalidUrl);
+        return tips.message(validationMessages.thumbnailInvalidUrl);
       })
       .messages({
         'any.required': validationMessages.thumbnailRequired,
@@ -151,11 +151,11 @@ const createMovieValidation = celebrate({
 const removeMovieValidation = celebrate({
   params: Joi.object().keys({
     movieId: Joi.string().required()
-      .custom((value, helpers) => {
+      .custom((value, tips) => {
         if (mongoose.isValidObjectId(value)) {
           return value;
         }
-        return helpers.message(validationMessages.movieIdInvalid);
+        return tips.message(validationMessages.movieIdInvalid);
       })
       .messages({
         'any.required': validationMessages.movieIdRequired,
