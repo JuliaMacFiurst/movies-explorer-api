@@ -5,43 +5,27 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { PORT, DB_URL } = require('./utils');
 const routes = require('./routes/index');
+const { errorOnServer } = require('./errors/Server');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
+const cors = require('./middlewares/cors');
 
 const app = express();
-
-const allowedCors = [
-  'localhost:3000',
-];
-
-app.use((req, res, next) => {
-  const { origin } = req.headers;
-  const { method } = req;
-  const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
-  const requestHeaders = req.headers['access-control-request-headers'];
-
-  res.header('Access-Control-Allow-Origin', origin);
-  res.header('Access-Control-Allow-Credentials', 'true');
-
-  if (allowedCors.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
-    res.header('Access-Control-Allow-Credentials', 'true');
-  }
-  if (method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-    res.header('Access-Control-Allow-Headers', requestHeaders);
-
-    return res.end();
-  }
-  next();
-});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
+app.use(requestLogger);
+app.use(cors);
+
 app.use(routes);
 
+app.use(errorLogger);
+
 app.use(errors());
+
+app.use(errorOnServer);
 
 async function main() {
   console.log('Try to connect to MongoDB');

@@ -34,6 +34,13 @@ const validationMessages = {
   thumbnailInvalidUrl: 'Поле "thumbnail" должно быть валидным адресом.',
 };
 
+const allowedCors = [
+  'http://localhost:3000',
+  'localhost:3000',
+];
+
+const allowedMethods = 'GET,HEAD,PUT,PATCH,POST,DELETE';
+
 module.exports = {
   PORT,
   DB_URL,
@@ -41,4 +48,6 @@ module.exports = {
   JWT_SECRET,
   validationMessages,
   SALT_ROUNDS,
+  allowedCors,
+  allowedMethods,
 };
