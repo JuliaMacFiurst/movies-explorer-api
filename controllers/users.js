@@ -61,7 +61,7 @@ const login = async (req, res, next) => {
       // secure: true,
     });
 
-    res.send({ token, message: 'Авторизация прошла успешно.' });
+    res.send({ message: 'Авторизация прошла успешно.' });
   } catch (err) {
     next(err);
   }

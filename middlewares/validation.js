@@ -83,6 +83,56 @@ const loginValidation = celebrate({
 
 const createMovieValidation = celebrate({
   body: Joi.object().keys({
+    country: Joi.string().required()
+      .messages({
+        'any.required': validationMessages.countryRequired,
+      }),
+    director: Joi.string().required()
+      .messages({
+        'any.required': validationMessages.directorRequired,
+      }),
+    duration: Joi.number().required()
+      .messages({
+        'any.required': validationMessages.durationRequired,
+      }),
+    year: Joi.string().required()
+      .messages({
+        'any.required': validationMessages.yearRequired,
+      }),
+    description: Joi.string().required()
+      .messages({
+        'any.required': validationMessages.descriptionRequired,
+      }),
+    image: Joi.string().required()
+      .custom((value, tips) => {
+        if (validator.isURL(value)) {
+          return value;
+        }
+        return tips.message(validationMessages.imageInvalidUrl);
+      })
+      .messages({
+        'any.required': validationMessages.imageRequired,
+      }),
+    trailerLink: Joi.string().required()
+      .custom((value, tips) => {
+        if (validator.isURL(value)) {
+          return value;
+        }
+        return tips.message(validationMessages.trailerLinkInvalidUrl);
+      })
+      .messages({
+        'any.required': validationMessages.trailerLinkRequired,
+      }),
+    thumbnail: Joi.string().required()
+      .custom((value, tips) => {
+        if (validator.isURL(value)) {
+          return value;
+        }
+        return tips.message(validationMessages.thumbnailInvalidUrl);
+      })
+      .messages({
+        'any.required': validationMessages.thumbnailRequired,
+      }),
     movieId: Joi.number().required()
       .messages({
         'any.required': validationMessages.movieIdRequired,
@@ -95,60 +145,10 @@ const createMovieValidation = celebrate({
       .messages({
         'any.required': validationMessages.nameEnRequired,
       }),
-    description: Joi.string().required()
-      .messages({
-        'any.required': validationMessages.descriptionRequired,
-      }),
-    duration: Joi.number().required()
-      .messages({
-        'any.required': validationMessages.durationRequired,
-      }),
-    year: Joi.string().required()
-      .messages({
-        'any.required': validationMessages.yearRequired,
-      }),
-    country: Joi.string().required()
-      .messages({
-        'any.required': validationMessages.countryRequired,
-      }),
-    director: Joi.string().required()
-      .messages({
-        'any.required': validationMessages.directorRequired,
-      }),
-    image: Joi.string().required()
-      .custom((value, tips) => {
-        if (validator.isURL(value)) {
-          return value;
-        }
-        return tips.message(validationMessages.imageInvalidUrl);
-      })
-      .messages({
-        'any.required': validationMessages.imageRequired,
-      }),
-    trailer: Joi.string().required()
-      .custom((value, tips) => {
-        if (validator.isURL(value)) {
-          return value;
-        }
-        return tips.message(validationMessages.trailerInvalidUrl);
-      })
-      .messages({
-        'any.required': validationMessages.trailerRequired,
-      }),
-    thumbnail: Joi.string().required()
-      .custom((value, tips) => {
-        if (validator.isURL(value)) {
-          return value;
-        }
-        return tips.message(validationMessages.thumbnailInvalidUrl);
-      })
-      .messages({
-        'any.required': validationMessages.thumbnailRequired,
-      }),
   }),
 });
 
-const removeMovieValidation = celebrate({
+const deleteMovieValidation = celebrate({
   params: Joi.object().keys({
     movieId: Joi.string().required()
       .custom((value, tips) => {
@@ -168,5 +168,5 @@ module.exports = {
   loginValidation,
   updateUserValidation,
   createMovieValidation,
-  removeMovieValidation,
+  deleteMovieValidation,
 };

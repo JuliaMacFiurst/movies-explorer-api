@@ -1,11 +1,11 @@
 const express = require('express');
 
-const usersRouter = express.Router();
+const usersRoutes = express.Router();
 const { updateUserValidation } = require('../middlewares/validation');
 const { getUserInfo, updateUser } = require('../controllers/users');
 
-usersRouter.get('/me', getUserInfo);
+usersRoutes.get('/me', getUserInfo);
 
-usersRouter.patch('/me', updateUserValidation, updateUser);
+usersRoutes.patch('/me', updateUserValidation, updateUser);
 
-module.exports = usersRouter;
+module.exports = usersRoutes;

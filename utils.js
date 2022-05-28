@@ -28,8 +28,8 @@ const validationMessages = {
   directorRequired: 'Поле "director" должно быть заполнено.',
   imageRequired: 'Поле "image" должно быть заполнено.',
   imageInvalidUrl: 'Поле "image" должно быть валидным адресом.',
-  trailerRequired: 'Поле "trailer" должно быть заполнено.',
-  trailerInvalidUrl: 'Поле "trailer" должно быть валидным адресом.',
+  trailerLinkRequired: 'Поле "trailerLink" должно быть заполнено.',
+  trailerLinkInvalidUrl: 'Поле "trailerLink" должно быть валидным адресом.',
   thumbnailRequired: 'Поле "thumbnail" должно быть заполнено.',
   thumbnailInvalidUrl: 'Поле "thumbnail" должно быть валидным адресом.',
 };

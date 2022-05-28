@@ -10,7 +10,7 @@ const auth = (req, res, next) => {
     try {
       payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'strongest-key-ever');
     } catch (err) {
-      throw new NOT_AUTH('Переданы некорректные данные при авторизации.');
+      next(new NOT_AUTH('Переданы некорректные данные при авторизации.'));
     }
     req.user = payload;
     next();
