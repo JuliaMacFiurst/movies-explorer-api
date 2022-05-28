@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const helmet = require('helmet');
 const { PORT, DB_URL } = require('./utils');
 const routes = require('./routes/index');
 const { errorOnServer } = require('./errors/Server');
@@ -18,7 +19,7 @@ app.use(cookieParser());
 
 app.use(requestLogger);
 app.use(cors);
-
+app.use(helmet());
 app.use(routes);
 
 app.use(errorLogger);

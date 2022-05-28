@@ -69,7 +69,7 @@ const deleteMovie = async (req, res, next) => {
 
     await movie.remove();
 
-    res.send(movie);
+    res.send({ message: 'Фильм удален из базы.' });
   } catch (err) {
     next(err);
   }
