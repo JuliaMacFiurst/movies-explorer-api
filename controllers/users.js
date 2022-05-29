@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const { NODE_ENV, JWT_SECRET, SALT_ROUNDS } = require('../utils/constants');
+const { NODE_ENV, JWT_SECRET, SALT_ROUNDS } = require('../utils/config');
 
 const User = require('../models/user');
 const BAD_REQUEST = require('../errors/BadRequest');
@@ -56,7 +56,7 @@ const login = async (req, res, next) => {
 
     res.cookie('jwt', token, {
       maxAge: 3600000 * 24 * 7,
-      sameSite: false,
+      // sameSite: false,
       httpOnly: true,
     });
 
