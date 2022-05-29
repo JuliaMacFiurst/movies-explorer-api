@@ -2,7 +2,7 @@ const { celebrate, Joi } = require('celebrate');
 const validator = require('validator');
 const mongoose = require('mongoose');
 
-const { validationMessages } = require('../utils');
+const { validationMessages } = require('../utils/constants');
 
 const createUserValidation = celebrate({
   body: Joi.object().keys({

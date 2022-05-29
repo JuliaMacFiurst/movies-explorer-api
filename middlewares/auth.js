@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const NOT_AUTH = require('../errors/AuthError');
-const { NODE_ENV, JWT_SECRET } = require('../utils');
+const { NODE_ENV, JWT_SECRET } = require('../utils/config');
 
 const auth = (req, res, next) => {
   const token = req.cookies.jwt;

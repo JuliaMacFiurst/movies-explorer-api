@@ -1,4 +1,4 @@
-const { allowedMethods, allowedCors } = require('../utils');
+const { allowedMethods, allowedCors } = require('../utils/constants');
 
 module.exports = ((req, res, next) => {
   const { origin } = req.headers;
