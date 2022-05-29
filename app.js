@@ -9,6 +9,7 @@ const routes = require('./routes/index');
 const { errorOnServer } = require('./errors/Server');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const cors = require('./middlewares/cors');
+const { limiter } = require('./middlewares/limiter');
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(cookieParser());
 app.use(requestLogger);
 app.use(cors);
 app.use(helmet());
+app.use(limiter);
 app.use(routes);
 
 app.use(errorLogger);
@@ -28,14 +30,6 @@ app.use(errors());
 
 app.use(errorOnServer);
 
-async function main() {
-  console.log('Try to connect to MongoDB');
-  await mongoose.connect(DB_URL);
-  console.log('Connected');
+mongoose.connect(DB_URL);
 
-  app.listen(PORT, () => {
-    console.log(`Server listen on ${PORT}`);
-  });
-}
-
-main();
+app.listen(PORT);

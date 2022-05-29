@@ -38,6 +38,6 @@ const userSchema = new mongoose.Schema({
       message: validationMessages.passwordNotStrong,
     },
   },
-});
+}, { versionKey: false });
 
 module.exports = mongoose.model('user', userSchema);
