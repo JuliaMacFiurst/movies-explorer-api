@@ -58,7 +58,6 @@ const login = async (req, res, next) => {
       maxAge: 3600000 * 24 * 7,
       sameSite: 'None',
       httpOnly: true,
-      // secure: true,
     });
 
     res.send({ message: 'Авторизация прошла успешно.' });
@@ -112,7 +111,6 @@ const updateUser = async (req, res, next) => {
 const logout = async (req, res, next) => {
   try {
     await res.clearCookie('jwt', {
-      maxAge: 3600000 * 24 * 7,
       httpOnly: true,
     });
 
