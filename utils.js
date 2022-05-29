@@ -35,6 +35,8 @@ const validationMessages = {
 };
 
 const allowedCors = [
+  'https://movies-explorer.nomoredomains.sbs',
+  'https://api.movies-explorer.nomoreparties.sbs',
   'http://localhost:3000',
   'localhost:3000',
 ];
