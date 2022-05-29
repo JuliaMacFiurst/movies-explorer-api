@@ -7,9 +7,12 @@ const {
   JWT_SECRET,
 } = process.env;
 
+const SALT_ROUNDS = 10;
+
 module.exports = {
   PORT,
   DB_URL,
   NODE_ENV,
   JWT_SECRET,
+  SALT_ROUNDS,
 };

@@ -1,5 +1,3 @@
-const SALT_ROUNDS = 10;
-
 const validationMessages = {
   nameRequired: 'Поле "name" должно быть заполнено.',
   nameMinLength: 'Поле "name" должно содержать минимум 2 символа.',
@@ -36,7 +34,6 @@ const allowedMethods = 'GET,HEAD,PUT,PATCH,POST,DELETE';
 
 module.exports = {
   validationMessages,
-  SALT_ROUNDS,
   allowedCors,
   allowedMethods,
 };
