@@ -9,6 +9,8 @@ const NOT_FOUND = require('../errors/NotFound');
 const CONFLICT = require('../errors/Conflict');
 const NOT_AUTH = require('../errors/AuthError');
 
+const { usersErrorMessages, noticeMessages } = require('../utils/constants');
+
 const createUser = async (req, res, next) => {
   const { name, email, password } = req.body;
 
@@ -25,7 +27,7 @@ const createUser = async (req, res, next) => {
     if (err.name === 'ValidationError') {
       next(new BAD_REQUEST(err.message));
     } else if (err.code === 11000) {
-      next(new CONFLICT('Такой пользователь уже существует.'));
+      next(new CONFLICT(usersErrorMessages.userAlreadyExists));
     } else {
       next(err);
     }
@@ -39,13 +41,13 @@ const login = async (req, res, next) => {
     const user = await User.findOne({ email }).select('+password');
 
     if (!user) {
-      throw new NOT_AUTH('Переданы некорректные данные при авторизации пользователя.');
+      throw new NOT_AUTH(usersErrorMessages.invalidAuthData);
     }
 
     const isMatched = await bcrypt.compare(password, user.password);
 
     if (!isMatched) {
-      throw new NOT_AUTH('Переданы некорректные данные при авторизации пользователя.');
+      throw new NOT_AUTH(usersErrorMessages.invalidAuthData);
     }
 
     const token = jwt.sign(
@@ -60,7 +62,7 @@ const login = async (req, res, next) => {
       httpOnly: true,
     });
 
-    res.send({ message: 'Авторизация прошла успешно.' });
+    res.send({ message: noticeMessages.successLogin });
   } catch (err) {
     next(err);
   }
@@ -71,7 +73,7 @@ const getUserInfo = async (req, res, next) => {
 
   try {
     const userInfo = await User.findById(userId)
-      .orFail(() => new NOT_FOUND('Пользователь с указанным id не найден.'));
+      .orFail(() => new NOT_FOUND(usersErrorMessages.userNotFoundById));
 
     res.send(userInfo);
   } catch (err) {
@@ -94,14 +96,14 @@ const updateUser = async (req, res, next) => {
         new: true,
         runValidators: true,
       },
-    ).orFail(() => new NOT_FOUND('Пользователь с указанным id не найден.'));
+    ).orFail(() => new NOT_FOUND(usersErrorMessages.userNotFoundById));
 
     res.send(updateUserInfo);
   } catch (err) {
     if (err.name === 'ValidationError') {
-      next(new BAD_REQUEST(err.message && 'Переданы некорректные данные при обновлении профиля.'));
+      next(new BAD_REQUEST(err.message && usersErrorMessages.invalidUpdatingData));
     } else if (err.code === 11000) {
-      next(new CONFLICT('Такой пользователь уже существует.'));
+      next(new CONFLICT(usersErrorMessages.userAlreadyExists));
     } else {
       next(err);
     }
@@ -114,7 +116,7 @@ const logout = async (req, res, next) => {
       httpOnly: true,
     });
 
-    res.send({ message: 'Выход из системы прошёл успешно.' });
+    res.send({ message: noticeMessages.successLogout });
   } catch (err) {
     next(err);
   }

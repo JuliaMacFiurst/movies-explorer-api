@@ -23,6 +23,29 @@ const validationMessages = {
   thumbnailInvalidUrl: 'Поле "thumbnail" должно быть валидным адресом.',
 };
 
+const usersErrorMessages = {
+  userAlreadyExists: 'Такой пользователь уже существует.',
+  invalidAuthData: 'Переданы некорректные данные при авторизации пользователя.',
+  userNotFoundById: 'Пользователь с указанным id не найден.',
+  invalidUpdatingData: 'Переданы некорректные данные при обновлении профиля.',
+  authRequired: 'Необходима авторизация.',
+};
+
+const moviesErrorMessages = {
+  noSuchMovieId: 'Фильма с таким id нет в базе.',
+  notAllowedToDelete: 'У вас нет прав для удаления фильма.',
+};
+
+const routesErrorMessages = {
+  pageNotFound: 'Запрашиваемая страница не найдена.',
+};
+
+const noticeMessages = {
+  successLogin: 'Авторизация прошла успешно.',
+  successLogout: 'Выход из системы прошёл успешно.',
+  successDeleted: 'Фильм удален из базы.',
+};
+
 const allowedCors = [
   'https://movies-explorer.nomoredomains.sbs',
   'https://api.movies-explorer.nomoreparties.sbs',
@@ -34,6 +57,10 @@ const allowedMethods = 'GET,HEAD,PUT,PATCH,POST,DELETE';
 
 module.exports = {
   validationMessages,
+  usersErrorMessages,
+  moviesErrorMessages,
+  routesErrorMessages,
+  noticeMessages,
   allowedCors,
   allowedMethods,
 };

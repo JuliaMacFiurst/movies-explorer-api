@@ -2,6 +2,8 @@ const express = require('express');
 
 const router = express.Router();
 const NOT_FOUND = require('../errors/NotFound');
+
+const { routesErrorMessages } = require('../utils/constants');
 const { createUserValidation, loginValidation } = require('../middlewares/validation');
 const auth = require('../middlewares/auth');
 const usersRoutes = require('./users');
@@ -26,6 +28,6 @@ router.post('/signout', logout);
 router.use('/users', usersRoutes);
 router.use('/movies', movieRoutes);
 
-router.all('*', (req, res, next) => next(new NOT_FOUND('Запрашиваемый ресурс не найден')));
+router.all('*', (req, res, next) => next(new NOT_FOUND(routesErrorMessages.pageNotFound)));
 
 module.exports = router;

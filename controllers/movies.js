@@ -3,6 +3,8 @@ const BAD_REQUEST = require('../errors/BadRequest');
 const NOT_FOUND = require('../errors/NotFound');
 const FORBIDDEN = require('../errors/Forbidden');
 
+const { moviesErrorMessages, noticeMessages } = require('../utils/constants');
+
 const getMovies = async (req, res, next) => {
   const userId = req.user._id;
 
@@ -61,15 +63,15 @@ const deleteMovie = async (req, res, next) => {
 
   try {
     const movie = await Movie.findById(movieId)
-      .orFail(() => new NOT_FOUND('Фильма с таким id нет в базе.'));
+      .orFail(() => new NOT_FOUND(moviesErrorMessages.noSuchMovieId));
 
     if (movie.owner.toString() !== userId) {
-      throw new FORBIDDEN('У вас нет прав для удаления фильма.');
+      throw new FORBIDDEN(moviesErrorMessages.notAllowedToDelete);
     }
 
     await movie.remove();
 
-    res.send({ message: 'Фильм удален из базы.' });
+    res.send({ message: noticeMessages.successDeleted });
   } catch (err) {
     next(err);
   }
