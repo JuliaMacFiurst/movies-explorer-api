@@ -64,7 +64,7 @@ const deleteMovie = async (req, res, next) => {
       .orFail(() => new NOT_FOUND('Фильма с таким id нет в базе.'));
 
     if (movie.owner.toString() !== userId) {
-      next(new FORBIDDEN('У вас нет прав для удаления фильма.'));
+      throw new FORBIDDEN('У вас нет прав для удаления фильма.');
     }
 
     await movie.remove();
@@ -73,6 +73,8 @@ const deleteMovie = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+
+  return null;
 };
 
 module.exports = {
