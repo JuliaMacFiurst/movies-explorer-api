@@ -23,18 +23,6 @@ const createUserValidation = celebrate({
         'any.required': validationMessages.emailRequired,
       }),
     password: Joi.string().required()
-      .custom((value, tips) => {
-        if (validator.isStrongPassword(value, {
-          minLength: 8,
-          minSymbols: 0,
-          minUppercase: 1,
-          minLowercase: 1,
-          minNumbers: 1,
-        })) {
-          return value;
-        }
-        return tips.message(validationMessages.passwordNotStrong);
-      })
       .messages({
         'any.required': validationMessages.passwordRequired,
       }),

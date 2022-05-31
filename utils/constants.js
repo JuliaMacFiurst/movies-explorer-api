@@ -5,7 +5,6 @@ const validationMessages = {
   emailRequired: 'Поле "email" должно быть заполнено.',
   emailInvalidUrl: 'Поле "email" должно быть валидным адресом.',
   passwordRequired: 'Поле "password" должно быть заполнено.',
-  passwordNotStrong: 'Пароль должен содержать минимум 8 символов, символы нижнего и верхнего регистра, цифры.',
   movieIdRequired: 'Поле "movieId" должно быть заполнено.',
   movieIdInvalid: 'Поле "movieId" должно быть валидным id.',
   nameRuRequired: 'Поле "nameRu" должно быть заполнено.',

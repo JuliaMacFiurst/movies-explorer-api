@@ -6,9 +6,9 @@ const { validationMessages } = require('../utils/constants');
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
+    required: true,
     minlength: 2,
     maxlength: 30,
-    default: 'Ben Bennet',
   },
   email: {
     type: String,
@@ -25,18 +25,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     select: false,
-    validate: {
-      validator(v) {
-        return validator.isStrongPassword(v, {
-          minLength: 8,
-          minLowercase: 1,
-          minUppercase: 1,
-          minNumbers: 1,
-          minSymbols: 0,
-        });
-      },
-      message: validationMessages.passwordNotStrong,
-    },
   },
 }, { versionKey: false });
 
