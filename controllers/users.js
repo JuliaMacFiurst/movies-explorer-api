@@ -60,7 +60,6 @@ const login = async (req, res, next) => {
       maxAge: 3600000 * 24 * 7,
       sameSite: false,
       httpOnly: true,
-      secure: true,
     });
 
     res.send({ message: noticeMessages.successLogin });
@@ -116,7 +115,6 @@ const logout = async (req, res, next) => {
     await res.clearCookie('jwt', {
       sameSite: false,
       httpOnly: true,
-      secure: true,
     });
 
     res.send({ message: noticeMessages.successLogout });
