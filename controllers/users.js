@@ -56,11 +56,11 @@ const login = async (req, res, next) => {
       { expiresIn: '7d' },
     );
 
-    res.cookie('jwt', token, {
-      maxAge: 3600000 * 24 * 7,
-      sameSite: false,
-      httpOnly: true,
-    });
+    // res.cookie('jwt', token, {
+    //   maxAge: 3600000 * 24 * 7,
+    //   sameSite: false,
+    //   httpOnly: true,
+    // });
 
     res.send({ token, message: noticeMessages.successLogin });
   } catch (err) {
@@ -112,10 +112,11 @@ const updateUser = async (req, res, next) => {
 
 const logout = async (req, res, next) => {
   try {
-    await res.clearCookie('jwt', {
-      sameSite: false,
-      httpOnly: true,
-    });
+    // await
+    // res.clearCookie('jwt', {
+    //   sameSite: false,
+    //   httpOnly: true,
+    // });
 
     res.send({ message: noticeMessages.successLogout });
   } catch (err) {
