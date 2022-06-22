@@ -4,7 +4,7 @@ const { NODE_ENV, JWT_SECRET } = require('../utils/config');
 const { usersErrorMessages } = require('../utils/constants');
 
 const auth = (req, res, next) => {
-  const token = req.rawHeaders.find(el => el.match(/^jwt=.*/)).replace(/^jwt=/, '');
+  const token = req.rawHeaders.find(el => el.match(/^Bearer */)).replace(/^Bearer /, '');
   if (token) {
     let payload;
     try {
