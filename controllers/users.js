@@ -62,7 +62,7 @@ const login = async (req, res, next) => {
       httpOnly: true,
     });
 
-    res.send({ message: noticeMessages.successLogin });
+    res.send({ token, message: noticeMessages.successLogin });
   } catch (err) {
     next(err);
   }
